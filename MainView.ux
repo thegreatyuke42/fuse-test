@@ -1,0 +1,117 @@
+<App Theme="Basic" ClearColor="#200c50">
+	<iOS.StatusBarConfig Style="Light" />
+
+	<DockPanel>
+		<Style>
+			<Text TextColor="#ffffff" />
+			<TextInput PlaceholderColor="#ffffff80" TextColor="#ffffff" CaretColor="#ffffff" />
+		</Style>
+
+		<float4 ux:Key="C600" ux:Value="#8869e5" />
+		<float4 ux:Key="C700" ux:Value="#6447b3" />
+		<float4 ux:Key="CFillFore" ux:Value="#644793" />
+
+		<StatusBarBackground Dock="Top" />
+		<BottomBarBackground Dock="Bottom" />
+
+		<!--Image File="Assets/test.jpg" Layer="Background" StretchMode="UniformToFill" Opacity=".3" /-->
+		<Video File="Assets/test.mp4" Layer="Background" StretchMode="UniformToFill" Opacity=".3" AutoPlay="true" IsLooping="true">
+			<Blur Radius="4.9" />
+		</Video>
+
+		<JavaScript>
+			var Observable = require("FuseJS/Observable");
+
+			var email = Observable("");
+			var loginUsername = Observable("");
+			var loginPassword = Observable("");
+			var signupUsername = Observable("");
+			var signupPassword = Observable("");
+			var currentPage = Observable("page1");
+
+			function goToPage1(){
+				currentPage.value="page1";
+			}
+
+			function goToPage2(){
+				currentPage.value="page2";
+			}
+
+			function goToPage3(){
+				currentPage.value="page3";
+			}
+
+			var areLoginCredentialsValid = Observable(function() {
+				return loginUsername.value != "" && loginPassword.value != "";
+			});
+
+			var areSignupCredentialsValid = Observable(function() {
+				return signupUsername.value != "" && signupPassword.value != ""
+				&& email.value != "" && signupPassword.value.length >= 6;
+			});
+
+			module.exports = {
+				loginUsername: loginUsername,
+				loginPassword: loginPassword,
+				signupUsername: signupUsername,
+				signupPassword: signupPassword,
+				currentPage: currentPage,
+				email: email,
+
+				areLoginCredentialsValid: areLoginCredentialsValid,
+				areSignupCredentialsValid: areSignupCredentialsValid,
+				goToPage1: goToPage1,
+				goToPage2: goToPage2,
+				goToPage3: goToPage3
+			};
+		</JavaScript>
+
+		<PageControl Active="{currentPage}" Interaction="None">
+			<Page ux:Name="page3">
+				<Grid Rows="1*,1*">
+					<StackPanel Alignment="VerticalCenter">
+						<Text Alignment="HorizontalCenter" FontSize="35" >Sign Up</Text>
+					</StackPanel>
+					<StackPanel Alignment="VerticalCenter" Margin="50,0,50,0">
+						<TextInput PlaceholderText="email" Value="{email}" />
+						<TextInput PlaceholderText="username" Value="{signupUsername}" />
+						<TextInput PlaceholderText="password" IsPassword="true" Value="{signupPassword}" />
+						<Button Text="Sign Up" IsEnabled="{areSignupCredentialsValid}" />
+						<Button Text="Go Back" Clicked="{goToPage1}" />
+					</StackPanel>
+				</Grid>
+			</Page>
+
+			<Page ux:Name="page1">
+				<Grid Rows="1*,1*">
+					<StackPanel Alignment="VerticalCenter">
+						<Text Alignment="HorizontalCenter" FontSize="50">MODS</Text>
+						<Text Alignment="HorizontalCenter" FontSize="15" Opacity=".75">4 Minecraft</Text>
+					</StackPanel>
+					<StackPanel Alignment="VerticalCenter" Margin="50,0,50,0">
+						<Button Text="Sign Up" Clicked="{goToPage3}" />
+						<Button Text="Log in" Clicked="{goToPage2}" />
+					</StackPanel>
+				</Grid>
+			</Page>
+
+			<Page ux:Name="page2">
+				<Grid Rows="1*,1*">
+					<StackPanel Alignment="VerticalCenter">
+						<Text Alignment="HorizontalCenter" FontSize="35" >Log In</Text>
+					</StackPanel>
+					<StackPanel Alignment="VerticalCenter" Margin="50,0,50,0">
+						<TextInput PlaceholderText="username" Value="{loginUsername}" />
+						<TextInput PlaceholderText="password" IsPassword="true" Value="{loginPassword}" />
+						<Button Text="Log in" IsEnabled="{areLoginCredentialsValid}" />
+						<Button Text="Go Back" Clicked="{goToPage1}" />
+					</StackPanel>
+				</Grid>
+			</Page>
+
+			<!--Button Clicked="http://149.56.20.16/updateServer.php?email={email}" /-->
+
+		</PageControl>
+
+	</DockPanel>
+</App>

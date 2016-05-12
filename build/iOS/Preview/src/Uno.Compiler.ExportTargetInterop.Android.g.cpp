@@ -1,0 +1,61 @@
+// This file was generated based on '(multiple files)'.
+// WARNING: Changes might be lost if you edit this file directly.
+
+#include <Uno.Compiler.ExportTargetInterop.Android.ForeignFixedNameAttribute.h>
+
+namespace g{
+namespace Uno{
+namespace Compiler{
+namespace ExportTargetInterop{
+namespace Android{
+
+// /usr/local/share/uno/Packages/UnoCore/0.27.20/Source/Uno/Compiler/ExportTargetInterop/Foreign/Android/$.uno#4
+// -------------------------------------------------------------------------------------------------------------
+
+// public sealed class ForeignFixedNameAttribute :638
+// {
+uType* ForeignFixedNameAttribute_typeof()
+{
+    static uSStrong<uType*> type;
+    if (type != NULL) return type;
+
+    uTypeOptions options;
+    options.ObjectSize = sizeof(ForeignFixedNameAttribute);
+    options.TypeSize = sizeof(uType);
+    type = uClassType::New("Uno.Compiler.ExportTargetInterop.Android.ForeignFixedNameAttribute", options);
+    type->SetBase(::g::Uno::Attribute_typeof());
+    type->fp_ctor_ = (void*)ForeignFixedNameAttribute__New1_fn;
+    type->Reflection.SetFunctions(1,
+        new uFunction(".ctor", NULL, (void*)ForeignFixedNameAttribute__New1_fn, 0, true, ForeignFixedNameAttribute_typeof(), 0));
+    return type;
+}
+
+// public ForeignFixedNameAttribute() :640
+void ForeignFixedNameAttribute__ctor_1_fn(ForeignFixedNameAttribute* __this)
+{
+    __this->ctor_1();
+}
+
+// public ForeignFixedNameAttribute New() :640
+void ForeignFixedNameAttribute__New1_fn(ForeignFixedNameAttribute** __retval)
+{
+    *__retval = ForeignFixedNameAttribute::New1();
+}
+
+// public ForeignFixedNameAttribute() [instance] :640
+void ForeignFixedNameAttribute::ctor_1()
+{
+    uStackFrame __("Uno.Compiler.ExportTargetInterop.Android.ForeignFixedNameAttribute", ".ctor()");
+    ctor_();
+}
+
+// public ForeignFixedNameAttribute New() [static] :640
+ForeignFixedNameAttribute* ForeignFixedNameAttribute::New1()
+{
+    ForeignFixedNameAttribute* obj1 = (ForeignFixedNameAttribute*)uNew(ForeignFixedNameAttribute_typeof());
+    obj1->ctor_1();
+    return obj1;
+}
+// }
+
+}}}}} // ::g::Uno::Compiler::ExportTargetInterop::Android
