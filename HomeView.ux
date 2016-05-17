@@ -1,0 +1,116 @@
+<App Theme="Basic">
+	<EdgeNavigator ux:Name="EdgeNavigator" >
+		<JavaScript>
+		var Observable = require("FuseJS/Observable");
+
+		var pictures = Observable();
+
+		var errorMessage = Observable("");
+		fetch("http://www.greenresturants.com/sever/files/applications/EA8DC83D84B131FC8ACFCF613/documents/modDetailsCopy.txt")
+			.then(function(result){
+				if (result.status != 200) {
+					errorMessage.value = "something went wrong: " + result.status;
+					return;
+				}
+				result.json().then(function(data){
+					debug_log("success");
+
+					for (var i = 0; i < data.length; i++) {
+						var item = data[i];
+						pictures.add(item);
+					}
+				});
+			}).catch(function(error){
+				errorMessage.value = "Oh no";
+			});
+		module.exports={
+			pictures: pictures
+			//errorMessage: errorMessage
+		};
+		</JavaScript>
+		
+		<!--
+		<Sidebar Width="180" ux:Name="menu" EdgeNavigation.Edge="Left">
+			<ActivatingAnimation>
+				<Change mainAppTranslation.X="180" />
+				
+				<Change topMenuTranslation.Y="0" />
+				<Change bottomMenuTranslation.Y="0" />
+				<Change middleRectangle.Opacity="0" Easing="CircularOut" />
+				<Change topMenuRotation.Degrees="45" Easing="ExponentialIn" />
+				<Change bottomMenuRotation.Degrees="-45" Easing="ExponentialIn" />
+				<Change topRectangle.Width="28" />
+				<Change bottomRectangle.Width="28" />
+			</ActivatingAnimation>
+		</Sidebar>
+	-->
+		<SideBar Width = "180" ux:Name="menu" EdgeNavigation.Edge = "Left">
+			<ActivatingAnimation>
+				<Change mainAppTranslation.X="180" />
+
+			</ActivatingAnimation>
+		</SideBar>
+
+		<DockPanel Background="#fff">
+			<Translation ux:Name="mainAppTranslation" />
+			<StatusBarBackground DockPanel.Dock = "Top"/>
+			<!-- <Text TextColor="#a94442" Value="{errorMessage}" Alignment="Center" /> -->
+			<!--this is where the top navigation is created -->
+			<StackPanel Dock="Top">
+				<Grid ColumnData="auto,1*,auto" Background="#ffffff">
+					<!-- creating the menu button with three seperate rectangles -->
+					<Panel Margin="7,5,5,5" Height="32" Width="32" HitTestMode="LocalBounds">
+						<Clicked>
+							<Set EdgeNavigator.Active="menu" />
+						</Clicked>
+						<Rectangle ux:Name="topRectangle" Height="2" Width="26" Fill="#000">
+							<Translation Y="-9" ux:Name="topMenuTranslation" />
+							<Rotation ux:Name="topMenuRotation" />
+						</Rectangle>
+						<Rectangle ux:Name="middleRectangle" Height="2" Width="26" Fill="#000" />
+						<Rectangle ux:Name="bottomRectangle" Height="2" Width="26" Fill="#000">
+							<Translation Y="9" ux:Name="bottomMenuTranslation" />
+							<Rotation ux:Name="bottomMenuRotation" />
+						</Rectangle>
+					</Panel>
+					<!-- title home -->
+					<Text FontSize="22" Alignment="VerticalCenter" TextAlignment="Center"
+						Value="Home" Padding="0">
+					</Text>
+					<!-- this creates a search feature not needed -->
+					<Panel Margin="5,5,7,5" Height="32" Width="32" HitTestMode="LocalBounds">
+						<Clicked>
+							<DebugAction Message="Search clicked" />
+						</Clicked>
+						<Circle Height="20" Width="20">
+							<Stroke Width="2" Brush="#000" />
+							<Image File="Assets/Coin-icon.png"/>
+						</Circle>
+						
+					</Panel>
+					
+				</Grid>
+				<Rectangle Height="1" Margin="0,5,0,0" Fill="#333c48" />
+				<Text ux:Name="txtOnline" Margin="0,10,0,10" Value="Your World is Offline" Alignment="Center"> </Text>
+				<Button Text="Launch World" ux:Name="button1" >
+        			<Clicked>
+            			<Set button1.Text="World Launched" />
+            			<Set txtOnline.Value = "Your World is Online" />
+        			</Clicked>
+    			</Button>
+
+			</StackPanel> <!-- end of the top navigation bar -->
+
+			<!-- This is the main scroll area -->
+    			<ScrollView>
+				<StackPanel Alignment="Top">
+					<Panel Height="7" />
+					<Each Items="{pictures}">
+						<ModItem />
+					</Each>
+				</StackPanel>
+			</ScrollView>
+		</DockPanel>
+</EdgeNavigator>
+</App>
+

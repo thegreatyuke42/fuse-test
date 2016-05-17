@@ -1,0 +1,31 @@
+<StackPanel ux:Class="ModItem">
+	<Panel ux:Class="VerticalBar" Margin="8,0,8,2" Alignment="VerticalCenter">
+		<Rectangle Height="12" Width="2" Fill="#dcdee3" />
+	</Panel>
+	<Panel ux:Class="HorizontalBar" Margin="0,0,0,0" Alignment="VerticalCenter">
+		<Rectangle Height="1" Fill="#000000" />
+	</Panel>
+
+		<!-- Text Creating our "class" layout elements-->
+	<Text ux:Class="SubText" Alignment="VerticalCenter" FontSize="12" TextColor="#7a96b2" />
+	<Text ux:Class="ModDetail" Margin="5,0,0,5" TextWrapping="Wrap" FontSize="15"></Text>
+	<Text ux:Class="Article" Margin="14,0,14,0" TextWrapping="Wrap" FontSize="13"></Text>
+	<Text ux:Class="ModName" Margin="0,0,0,135" FontSize="22" Alignment="Center"></Text>
+
+	<DockPanel Margin="4,2,4,15" Height="350">
+		<!-- main image for our mods -->
+		    
+		<Rectangle Margin="0,10,0,0" Dock="Top" Height = "150" CornerRadius="1">
+			<Image Url="{image}" />
+		</Rectangle>
+		<ModName Value = "{ModName}"/>
+		<ScrollView Margin="0,55,0,10" >
+			<ModDetail Value = "{ModDescription}" />
+		</ScrollView>
+		
+		<HorizontalBar Dock="Bottom"/>
+	</DockPanel>
+
+	<!-- main information mod image, details, installed or not -->
+
+</StackPanel>
